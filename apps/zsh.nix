@@ -48,6 +48,8 @@
       nix-update = "sudo nixos-rebuild switch --upgrade";
       nix-switch = "sudo nixos-rebuild switch";
       home-switch = "home-manager switch -f $HOME/nixos/profiles/personal.nix -b backup";
+      sxhkd-switch = "pkill -usr1 -x sxhkd";
+      bspwm-switch = "bspc wm --restart";
 
       # Modern unix
       grep = "rg $@";

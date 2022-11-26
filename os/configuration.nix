@@ -109,13 +109,8 @@ in
     layout = "us";
     xkbVariant = "";
 
-    windowManager.i3 = {
+    windowManager.bspwm = {
       enable = true;
-      package = pkgs.i3-gaps;
-
-      extraPackages = with pkgs; [
-        i3lock # Screen locker
-      ];
     };
 
     desktopManager = {
@@ -271,7 +266,6 @@ in
     systemPackages = with pkgs; [
       wget
       alacritty
-      i3-gaps
       polybar
       chromium
       git
@@ -293,6 +287,7 @@ in
       yubikey-manager-qt
       yubioath-desktop
       xclip
+      i3lock
 
       # My wrappers
       (callPackage ../wrappers/nvim.nix { })

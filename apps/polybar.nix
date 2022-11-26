@@ -26,7 +26,7 @@
         line-size = 3;
         line-color = "\${colors.underline}";
 
-        modules-left = "i3";
+        modules-left = "wm";
         modules-right = "memory cpu eth date";
 
         font-0 = "FantasqueSansMono Nerd Font Mono:size=13;2";
@@ -46,7 +46,7 @@
         cursor-click = "pointer";
       };
 
-      "module/i3" = {
+      "module/wm" = {
         type = "internal/xworkspaces";
         wrapping-scroll = true;
 
