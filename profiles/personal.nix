@@ -84,6 +84,7 @@ in
       notion-app-enhanced
       photoqt
       dunst
+      xdotool
 
       # Modern unix
       ripgrep

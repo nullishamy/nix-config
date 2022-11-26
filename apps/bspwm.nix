@@ -9,6 +9,10 @@ in {
     settings = { };
     extraConfig = ''
       bspc monitor -d Web Music Discord Editor Shell 6 7 8 9 10
+
+      # Scratch term setup
+      alacritty --class scratch-term &
+      bspc rule -a Alacritty:scratch-term sticky=on state=floating hidden=on
     '';
 
     rules = {
@@ -19,10 +23,6 @@ in {
       "Spotify" = {
         desktop = "^2";
         follow = false;
-      };
-      "*:*scratchpad-" = {
-        state = "floating";
-        center = true;
       };
     };
 
@@ -46,6 +46,8 @@ in {
       "${mod} + shift + q" = "bspc node -c";
       "${mod} + f" = "bspc node -t fullscreen";
       "${mod} + d" = "rofi -show run -no-lazy-grab -lines 15 -width 40";
+      "${mod} + r" = "bspc node @focused:/ --rotate 90";
+      "${mod} + shift + r" = "bspc node @focused:/ --rotate 180";
       "Print" = "flameshot gui";
     };
 
@@ -65,8 +67,11 @@ in {
           bspc node -z $(echo "left -$STEP 0,bottom 0 $STEP,top 0 -$STEP,right $STEP 0" | cut -d',' -f$SELECTION) || \
           bspc node -z $(echo "right -$STEP 0,top 0 $STEP,bottom 0 -$STEP,left $STEP 0" | cut -d',' -f$SELECTION)
 
-      ${mod} + slash
-          ${./bspwm/sxhkd-help.sh}
+      ${mod} + t
+          ${./bspwm-scripts/scratch-term.sh}
+
+      ${mod} + /
+          ${./bspwm-scripts/sxhkd-help.sh}
     '';
   };
 }
