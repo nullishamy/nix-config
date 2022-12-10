@@ -92,26 +92,26 @@
 
       font = {
         normal = {
-          family = "FantasqueSansMono Nerd Font Mono";
-          style = "Regular";
+          family = "VictorMono Nerd Font Mono";
+          style = "Medium";
         };
 
         bold = {
-          family = "FantasqueSansMono Nerd Font Mono";
+          family = "VictorMono Nerd Font Mono";
           style = "Bold";
         };
 
         italic = {
-          family = "FantasqueSansMono Nerd Font Mono";
-          style = "Italic";
+          family = "VictorMono Nerd Font Mono";
+          style = "Medium";
         };
 
         bold_italic = {
-          family = "FantasqueSansMono Nerd Font Mono";
-          style = "Bold Italic";
+          family = "VictorMono Nerd Font Mono";
+          style = "Medium Bold";
         };
 
-        size = 14.0;
+        size = 13.0;
       };
 
       cursor = {

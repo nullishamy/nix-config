@@ -255,7 +255,7 @@ in
   # Fonts
   fonts.fonts = with pkgs; [
     # Only use the given nerdfonts, saves cloning *everything*
-    (nerdfonts.override { fonts = [ "Hack" "Iosevka" "FantasqueSansMono" ]; })
+    (nerdfonts.override { fonts = [ "Hack" "Iosevka" "FantasqueSansMono" "VictorMono" ]; })
   ];
 
   environment = {

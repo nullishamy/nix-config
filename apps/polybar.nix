@@ -29,7 +29,7 @@
         modules-left = "wm";
         modules-right = "memory cpu eth date";
 
-        font-0 = "FantasqueSansMono Nerd Font Mono:size=13;2";
+        font-0 = "VictorMono Nerd Font Mono:size=13;2";
 
         border-size = "4pt";
         border-color = "#00000000";
