@@ -11,6 +11,7 @@
       { id = "eimadpbcbfnmbkopoojfekhnkhdbieeh"; } # Dark Reader
       { id = "nngceckbapebfimnlniiiahkandclblb"; } # Bitwarden
       { id = "mnjggcdmjocbbbhaepdhchncahnbgone"; } # SponsorBlock
+      { id = "hlepfoohegkhhmjieoechaddaejaokhf"; } # Refined GitHub
     ];
   };
 }

@@ -95,6 +95,9 @@ in
       tldr
       dogdns
       httpie
+      gitoxide
+
+
       jetbrains.idea-community
     ];
 
