@@ -13,6 +13,21 @@ in {
       # Scratch term setup
       alacritty --class scratch-term &
       bspc rule -a Alacritty:scratch-term sticky=on state=floating hidden=on
+
+      # Mice bindings
+      # Set mod key
+      bspc config pointer_modifier ${mod}
+
+      #   Set mouse 1 to move floating windows
+      bspc config pointer_action1 move
+
+      #   Mouse 2 button resizes the window by side
+      bspc config pointer_action2 resize_side
+
+      #   Mouse 3 button (right mouse) resize by corner
+      bspc config pointer_action2 resize_corner
+
+      bspc config focus_follows_pointer true
     '';
 
     rules = {
