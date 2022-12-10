@@ -37,18 +37,21 @@ in
     optimise.automatic = false;
     optimise.dates = [ "12:55" ];
 
-    # Nix automatically detects files in the store that have identical contents, and replaces them with hard links to a single copy.
+    settings = { 
+
+      # Nix automatically detects files in the store that have identical contents, and replaces them with hard links to a single copy.
     autoOptimiseStore = true;
 
-    # Maximum number of concurrent tasks during one build
+      # Maximum number of concurrent tasks during one build
     buildCores = 4;
 
-    # Maximum number of jobs that Nix will try to build in parallel
-    # "auto" is broken: https://github.com/NixOS/nixpkgs/issues/50623
-    maxJobs = 16;
+      # Maximum number of jobs that Nix will try to build in parallel
+      # "auto" is broken: https://github.com/NixOS/nixpkgs/issues/50623
+      maxJobs = 16;
 
-    # Perform builds in a sandboxed environment
-    useSandbox = true;
+      # Perform builds in a sandboxed environment
+      useSandbox = true;
+    };
   };
 
   networking = {
@@ -98,7 +101,7 @@ in
   services.cron = {
     enable = true;
     systemCronJobs =  [
-      "25 20 * * *   amy   . /etc/profile; ${../backup/run-backup.py} ${builtins.readFile ../backup/args.txt} > /tmp/cron.log"
+      "25 20 * * *   amy   . /etc/profile; ${../backup/run-backup.py} ${builtins.readFile ../backup/args.txt}"
     ];
   };
 
@@ -134,7 +137,6 @@ in
   # Configure picom
   services.picom = {
     enable = true;
-    experimentalBackends = true;
 
     settings = {
       # -- SHADOWS --
