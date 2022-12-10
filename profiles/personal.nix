@@ -49,10 +49,8 @@ in
       "shells/ts.nix" = { source = ../shells/js.nix; };
       "shells/docker.nix" = { source = ../shells/docker.nix; };
       "shells/rust.nix" = { source = ../shells/rust.nix; };
-      ".background-image" = { source = ../wallpaper.png; };
 
-      # Create a config.nix for doing some specific config, namely allowing unfree, which
-      # doesn't work when declared anywhere else? 
+      ".background-image" = { source = ../wallpaper.png; };
       ".config/nixpkgs/config.nix" = { source = ../apps/nixpkgs.nix; };
       ".icons/default" = { source = "${pkgs.vanilla-dmz}/share/icons/Vanilla-DMZ-AA"; };
     };
@@ -60,7 +58,6 @@ in
     packages = with pkgs; [
       # My packages
       (callPackage ../packages/catppuccin-gtk {})
-      (callPackage ../packages/bspwm-scratch {})
 
       bottom
       neofetch

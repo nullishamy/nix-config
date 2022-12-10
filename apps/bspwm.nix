@@ -67,9 +67,6 @@ in {
           bspc node -z $(echo "left -$STEP 0,bottom 0 $STEP,top 0 -$STEP,right $STEP 0" | cut -d',' -f$SELECTION) || \
           bspc node -z $(echo "right -$STEP 0,top 0 $STEP,bottom 0 -$STEP,left $STEP 0" | cut -d',' -f$SELECTION)
 
-      ${mod} + t
-          ${./bspwm-scripts/scratch-term.sh}
-
       ${mod} + /
           ${./bspwm-scripts/sxhkd-help.sh}
     '';
