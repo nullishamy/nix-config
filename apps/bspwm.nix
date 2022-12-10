@@ -59,7 +59,6 @@ in {
     keybindings = {
       "${mod} + Return" = "alacritty";
       "${mod} + shift + q" = "bspc node -c";
-      "${mod} + f" = "bspc node -t fullscreen";
       "${mod} + d" = "rofi -show run -no-lazy-grab -lines 15 -width 40";
       "${mod} + r" = "bspc node @focused:/ --rotate 90";
       "${mod} + shift + r" = "bspc node @focused:/ --rotate 180";
@@ -81,6 +80,9 @@ in {
           STEP=30; SELECTION={1,2,3,4}; \
           bspc node -z $(echo "left -$STEP 0,bottom 0 $STEP,top 0 -$STEP,right $STEP 0" | cut -d',' -f$SELECTION) || \
           bspc node -z $(echo "right -$STEP 0,top 0 $STEP,bottom 0 -$STEP,left $STEP 0" | cut -d',' -f$SELECTION)
+
+      ${mod} + {t,shift + t,f,shift + f}
+          bspc node -t '~{tiled,pseudo_tiled,floating,fullscreen}'
 
       ${mod} + /
           ${./bspwm-scripts/sxhkd-help.sh}
