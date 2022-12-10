@@ -31,7 +31,7 @@ in {
     '';
 
     rules = {
-      "Discord*" = {
+      "discord*" = {
         desktop = "^3";
         follow = false;
       };
