@@ -1,0 +1,49 @@
+return {
+  wakatime = {
+    enabled = true,
+  },
+  font = {
+    name = 'Iosevka',
+    size = '15',
+  },
+  startuptime = {
+    enabled = false,
+  },
+  tree = {
+    hidden = {
+      '.DS_Store',
+      'thumbs.db',
+      'node_modules',
+    },
+  },
+  discord = {
+    blacklist = {}
+  },
+  mason = {
+    packages = {
+      -- Packages to be installed automatically by mason
+      -- Some of these are disabled by my personal nixos config, feel free to re-enable
+
+      -- Format
+      'stylua',
+      'prettierd',
+
+      -- Lint
+      'selene',
+      'gitlint',
+      'proselint',
+      'codespell',
+
+      -- LSP
+      'lua-language-server',
+      'typescript-language-server',
+      'gopls',
+      'bash-language-server',
+      'omnisharp',
+      'rnix-lsp',
+
+      -- DAP
+      -- None
+    },
+  },
+}

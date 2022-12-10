@@ -53,6 +53,7 @@ in
       ".background-image" = { source = ../wallpaper.png; };
       ".config/nixpkgs/config.nix" = { source = ../apps/nixpkgs.nix; };
       ".icons/default" = { source = "${pkgs.vanilla-dmz}/share/icons/Vanilla-DMZ-AA"; };
+      ".config/nvim" = { source = ../apps/nvim-config; };
     };
 
     packages = with pkgs; [
