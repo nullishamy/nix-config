@@ -64,14 +64,15 @@ def parse_args():
     parser.add_argument('--port', help='The port to use for the FTP connection', required=False, default=21, type=int)
     parser.add_argument('--tarball', help='The existing tarball to use', required=False, type=pathlib.Path)
     parser.add_argument('--exclude-defaults', action='store_true', help='Exclude the default directories from being backed up.', required=False)
-    parser.add_argument('-ll', '--log-level', help='The log level to use', required=False, default='WARN', choices=['DEBUG','INFO','WARN','ERROR','CRITICAL'])
-    parser.add_argument('-o', '--output-dir',  help='The output directory to put the tarballs in.', required=False, default='./archives', type=pathlib.Path)
-    parser.add_argument('-r', '--retries', help='The amount of retries for FTP', type=int, default=3)
-    parser.add_argument('-d', '--destination-dir',  help='The destination directory', required=False, default='Backup')
-    parser.add_argument('-u', '--username', help='The username to use for the FTP connection', required=False, default='anonymous')
-    parser.add_argument('-p', '--password', help='The password to use for the FTP connection', required=False, default='anonymous')
-    parser.add_argument('-f', '--files', help='The additional files / directories to backup', nargs='*', type=pathlib.Path)
-    parser.add_argument('-e', '--exclude', help='The files / directories to exclude from the backup', nargs='*', type=pathlib.Path)
+    parser.add_argument('--log-level', help='The log level to use', required=False, default='WARN', choices=['DEBUG','INFO','WARN','ERROR','CRITICAL'])
+    parser.add_argument('--log-file', help='The log file to use', required=False, type=pathlib.Path)
+    parser.add_argument('--archive-dir',  help='The output directory to put the tarballs in.', required=False, default='./archives', type=pathlib.Path)
+    parser.add_argument('--retries', help='The amount of retries for FTP', type=int, default=3)
+    parser.add_argument('--ftp-dir',  help='The destination directory', required=False, default='Backup')
+    parser.add_argument('--username', help='The username to use for the FTP connection', required=False, default='anonymous')
+    parser.add_argument('--password', help='The password to use for the FTP connection', required=False, default='anonymous')
+    parser.add_argument('--include', help='The additional files / directories to backup', nargs='*', type=pathlib.Path)
+    parser.add_argument('--exclude', help='The files / directories to exclude from the backup', nargs='*', type=pathlib.Path)
 
     return parser.parse_args()
 
@@ -206,12 +207,16 @@ def main():
     coloredlogs.install(level=args.log_level, logger=logger)
     logger.info(f'Installed {args.log_level} logs')
 
+    if args.log_file:
+        logger.addHandler(logging.FileHandler(args.log_file))
+        logger.debug('Added FileHandler log handler')
+
     logger.info('Checkpoint 1: Args')
 
     logger.debug('Setting up file set')
 
     files = {
-        'additional': args.files or []
+        'additional': args.include or []
     }
 
     if not args.exclude_defaults:
@@ -223,21 +228,21 @@ def main():
         logger.critical('No files specified for backup (defaults excluded)')
         sys.exit(1)
 
-    logger.debug('Attempting to create output dir')
-    if not os.path.exists(args.output_dir):
-        os.makedirs(args.output_dir)
-        logger.debug('Created output dir')
+    logger.debug('Attempting to create archive dir')
+    if not os.path.exists(args.archive_dir):
+        os.makedirs(args.archive_dir)
+        logger.debug('Created archive dir')
     
     if args.tarball:
         tarball = args.tarball.resolve() 
     else:
-        tarball = create_tarball(files, args.output_dir, args.exclude or [])
+        tarball = create_tarball(files, args.archive_dir, args.exclude or [])
 
     logger.debug(f'Tarball path: {tarball.as_posix()}')
     logger.info('Checkpoint 2: Tarball')
 
     logger.debug('Starting upload process')
-    upload_to_ftp(args.host, args.port, args.username, args.password, tarball, args.destination_dir, args.retries)
+    upload_to_ftp(args.host, args.port, args.username, args.password, tarball, args.ftp_dir, args.retries)
 
     logger.info('Checkpoint 3: FTP')
     logger.info('Backup complete, exiting!')
