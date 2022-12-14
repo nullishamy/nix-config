@@ -13,4 +13,7 @@ return {
       require('formatter.filetypes.json').prettierd,
     },
   },
+
+  dap = {
+  }
 }

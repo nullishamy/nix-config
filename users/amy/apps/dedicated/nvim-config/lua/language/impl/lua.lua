@@ -40,4 +40,31 @@ return {
       require('formatter.filetypes.lua').stylua,
     },
   },
+
+  dap = {
+    enable = true,
+
+    plugin = 'osv',
+
+    adapter = {
+      key = 'nlua',
+      config = function(callback, config)
+        callback({ type = 'server', host = config.host or '127.0.0.1', port = config.port or 8086 })
+      end,
+    },
+
+    configs = {
+      {
+        type = 'nlua',
+        request = 'attach',
+        name = 'Attach to running Neovim instance',
+      },
+    },
+
+    -- The function used to start an external server, if needed
+    -- Optional
+    external_server = function()
+      return false
+    end,
+  },
 }

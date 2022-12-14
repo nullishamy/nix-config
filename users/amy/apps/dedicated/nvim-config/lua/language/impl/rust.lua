@@ -8,7 +8,7 @@ return {
       key = 'rust_analyzer',
       config = {
         cmd = { 'rust-analyzer' },
-        post_init = function(config)
+        post_init = function(_, config)
           require('rust-tools').setup({
             server = {
               autostart = true,
@@ -29,4 +29,7 @@ return {
   format = {
     filetype = 'rust',
   },
+
+  dap = {
+  }
 }

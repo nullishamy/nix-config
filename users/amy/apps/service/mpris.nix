@@ -1,6 +1,6 @@
 # Mpris settings
 
-{ config, lib, pkgs, ...}:
+{ config, lib, pkgs, ... }:
 
 {
   services.mpris-proxy = {

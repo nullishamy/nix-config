@@ -13,4 +13,7 @@ return {
       require('formatter.filetypes.python').black,
     },
   },
+
+  dap = {
+  }
 }

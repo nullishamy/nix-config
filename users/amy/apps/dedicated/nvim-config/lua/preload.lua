@@ -61,7 +61,13 @@ return require('packer').startup(function(o_use)
     end,
     disable = true,
   })
-  use('https://github.com/alaviss/nim.nvim')
+  use('alaviss/nim.nvim')
+
+  -- DAP
+  use('mfussenegger/nvim-dap')
+  use('rcarriga/nvim-dap-ui')
+
+  use('jbyuki/one-small-step-for-vimkind')
 
   -- Snippets
   use('honza/vim-snippets')

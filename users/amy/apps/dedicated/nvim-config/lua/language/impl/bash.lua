@@ -10,4 +10,7 @@ return {
   format = {
     filetype = { 'sh', 'bash' },
   },
+
+  dap = {
+  }
 }

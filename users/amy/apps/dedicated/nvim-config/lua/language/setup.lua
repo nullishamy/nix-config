@@ -22,6 +22,7 @@ require('language.impl._before_setup')
 
 local format_config = {}
 local lsp_config = require('lspconfig')
+local dap_config = require('dap')
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
@@ -35,10 +36,12 @@ for _, language in pairs(LANGUAGES) do
     assert(lang_mod.name, string.format('name field was not set (language %s)', language))
 
     local lsp = lang_mod.lsp
+    local dap = lang_mod.dap
     local fmt = lang_mod.format
 
     assert(lsp ~= nil, string.format('lsp field was not set (language %s)', lang_mod.name))
     assert(fmt ~= nil, string.format('fmt field was not set (language %s)', lang_mod.name))
+    assert(dap ~= nil, string.format('dap field was not set (language %s)', lang_mod.name))
 
     -- Set up formatting
 
@@ -71,27 +74,41 @@ for _, language in pairs(LANGUAGES) do
       for _, server in pairs(lsp) do
         if server.enable ~= false then
           local config = server.config or {}
-          local on_attach = require('language.misc.on_attach')
+          local on_attach = require('language.misc.on_attach')(lang_mod)
 
           config.autostart = true
           config.capabilities = capabilities
           config.on_attach = on_attach
 
           if config.pre_init then
-            config.pre_init(config)
+            config.pre_init(lang_mod, config)
           end
 
           if config.external_setup then
-            config.external_setup(config)
+            config.external_setup(lang_mod, config)
           else
             lsp_config[server.key].setup(config)
           end
 
           if config.post_init then
-            config.post_init(config)
+            config.post_init(lang_mod, config)
           end
         end
       end
+    end
+
+    -- Setup DAP
+    -- == true because nil signifies disabled
+    if dap.enable == true then
+      local plugin = dap.plugin
+      if plugin ~= nil then
+          local ok, _ = pcall(require, plugin)
+
+          assert(ok, string.format('DAP for %s requires external plugin %s but require() errored', lang_mod.name, plugin))
+      end
+
+      dap_config.configurations[lang_mod.name] = dap.configs
+      dap_config.adapters[dap.adapter.key or lang_mod.name] = dap.adapter.config
     end
   end
 end

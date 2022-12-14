@@ -26,6 +26,8 @@ module('core/neovide')
 
 -- Language features and navigation
 module('util/ui/tree')
+-- Dap must be initialised before LSP
+module('language/misc/dap')
 module('language/setup')
 
 -- Snippets must be loaded before cmp

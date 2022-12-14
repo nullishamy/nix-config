@@ -11,4 +11,7 @@ return {
     enable = false,
     filetype = 'php',
   },
+
+  dap = {
+  }
 }

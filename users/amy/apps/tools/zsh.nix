@@ -59,6 +59,7 @@
       ls = "exa $@";
       cat = "bat $@";
       dig = "dog $@";
+      ls = "lsd $@";
     };
 
     # OMZ Config

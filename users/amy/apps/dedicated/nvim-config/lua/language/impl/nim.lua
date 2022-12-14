@@ -10,4 +10,7 @@ return {
   format = {
     enable = false
   },
+
+  dap = {
+  }
 }

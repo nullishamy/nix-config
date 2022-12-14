@@ -5,7 +5,7 @@ return {
     {
       key = 'null-ls',
       config = {
-        external_setup = function()
+        external_setup = function(lang_mod)
           local ns = require('null-ls').builtins
 
           require('null-ls').setup({
@@ -19,7 +19,7 @@ return {
               ns.code_actions.proselint,
             },
             update_in_insert = true,
-            on_attach = require('language.misc.on_attach'),
+            on_attach = require('language.misc.on_attach')(lang_mod),
           })
         end,
       },
@@ -30,4 +30,7 @@ return {
     -- null-ls will never have formatters
     enable = false,
   },
+
+  dap = {
+  }
 }
