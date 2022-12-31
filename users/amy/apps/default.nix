@@ -45,7 +45,19 @@
     dogdns
     gitoxide
 
-
     jetbrains.idea-community
+
+    # Emacs dependencies
+    binutils
+    (ripgrep.override { withPCRE2 = true; })
+    libvterm
+    gnutls
+    fd
+    imagemagick
+    zstd
+    nodePackages.javascript-typescript-langserver
+    sqlite
+    editorconfig-core-c
+    emacs-all-the-icons-fonts
   ];
 }

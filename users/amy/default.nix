@@ -1,6 +1,5 @@
 { config
 , pkgs
-, nix-doom-emacs
 , ...
 }: {
   imports = [
@@ -31,7 +30,6 @@
 
   home-manager.users.amy = {
     imports = [
-      nix-doom-emacs.hmModule
       ./config.nix
     ];
 
