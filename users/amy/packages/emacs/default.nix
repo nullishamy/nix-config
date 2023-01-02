@@ -12,6 +12,7 @@
 , lua
 , sumneko-lua-language-server
 , nodePackages
+, rust-analyzer
 , ...
 }:
 
@@ -21,9 +22,8 @@ runCommandNoCC "emacs" { nativeBuildInputs = [ makeWrapper ]; } ''
     --set DOOMDIR "~/.config/doom-config" \
     --set DOOMLOCALDIR "~/.config/doom-local" \
     --set DOOMPROFILELOADFILE "~/.config/doom-local/profiles.el" \
-    --prefix PATH : ${lib.makeBinPath [ 
-      sumneko-lua-language-server
-      nodePackages.typescript-language-server
+    --set EMACS "${emacs}/bin/emacs" \
+    --prefix _PATH : ${lib.makeBinPath [
       clang
       lua
       gcc
@@ -31,5 +31,10 @@ runCommandNoCC "emacs" { nativeBuildInputs = [ makeWrapper ]; } ''
       rustc
       nodejs
       python3
+
+      # LSP
+      sumneko-lua-language-server
+      nodePackages.typescript-language-server
+      rust-analyzer
     ]}
 ''

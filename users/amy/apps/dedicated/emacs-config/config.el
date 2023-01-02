@@ -3,11 +3,32 @@
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
 
+;; Setup the path
+;; We use this to pass forward PATH info from nix
+(setenv "PATH" (concat (getenv "PATH") ":" (getenv "_PATH")))
+
+(defun set-exec-path-from-shell-PATH ()
+  "Set up Emacs' `exec-path' and PATH environment variable to match
+that used by the user's shell.
+
+This is particularly useful under Mac OS X and macOS, where GUI
+apps are not started from a shell."
+  (interactive)
+  (let ((path-from-shell (replace-regexp-in-string
+			  "[ \t\n]*$" "" (shell-command-to-string
+					  "$SHELL --login -c 'echo $PATH'"
+						    ))))
+    (setenv "PATH" path-from-shell)
+    (setq exec-path (split-string path-from-shell path-separator))))
+
+(set-exec-path-from-shell-PATH)
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets. It is optional.
 (setq user-full-name "Amy"
       user-mail-address "amy.codes@null.net")
+
+(setq ido-mode t)
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
@@ -42,10 +63,19 @@
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
 
-;; LSP
-;; Enable hover docs
-(setq lsp-ui-doc-enable nil)
-(setq lsp-completion-provider :none)
+;; Autosave
+;; When autosave runs, save the current file, rather than to a backup
+(setq autosave-save-visited-mode t)
+(defun full-auto-save ()
+  (interactive)
+  (save-excursion
+    (dolist (buf (buffer-list))
+      (set-buffer buf)
+      (if (and (buffer-file-name) (buffer-modified-p))
+          (basic-save-buffer)))))
+
+;; When autosave runs, save all buffers
+(add-hook 'auto-save-hook 'full-auto-save)
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
@@ -79,11 +109,26 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-;; Autosave
-(add-hook 'evil-insert-state-exit-hook
-          (lambda ()
-            (call-interactively #'save-buffer)))
+(use-package elcord
+  :config
+  (require 'elcord)
+  (elcord-mode)
+  (setq elcord-quiet t)
+  (setq elcord-idle-message "AFK"))
+
+(use-package move-text
+  :config
+  (require 'move-text)
+  (elcord-mode))
+
+(use-package exec-path-from-shell
+  :config
+  (require 'exec-path-from-shell)
+  ;; Copy SSH environment variables from zsh
+  (exec-path-from-shell-copy-env "SSH_AGENT_PID")
+  (exec-path-from-shell-copy-env "SSH_ASKPASS")
+  (exec-path-from-shell-copy-env "SSH_AUTH_SOCK"))
 
 ;; Jump to start / end of lines
-(map! "H" #'evil-first-non-blank)
-(map! "L" #'evil-last-non-blank)
+(map! :nvom "H" #'evil-first-non-blank)
+(map! :nvom "L" #'evil-last-non-blank)

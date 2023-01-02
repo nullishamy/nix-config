@@ -1,6 +1,4 @@
 { config, pkgs, ... }: {
-  config.home.file.".config/nvim" = { source = ./nvim-config; };
-  config.home.file.".config/wezterm" = { source = ./wezterm-config; };
   config.home.file."etc/patches/patch-discord.sh" = { source = ./patch-discord.sh; };
 
   config.home = {
@@ -13,6 +11,12 @@
   };
 
   config.xdg.configFile = {
+    "nvim" = {
+      source = ./nvim-config;
+    };
+    "wezterm" = {
+      source = ./wezterm-config;
+    };
     "doom-config" = {
       source = ./emacs-config;
       onChange = "${pkgs.writeShellScript "doom-change" ''

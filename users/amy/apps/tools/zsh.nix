@@ -53,6 +53,8 @@
       bspwm-switch = "bspc wm --restart";
       wallpaper-switch = "bash ${../../wallpapers}/sh/random-switch.sh";
 
+      mkcd = "mkdir \"$1\" && cd \"$1\"";
+
       # Modern unix
       grep = "rg $@";
       find = "fd $@";

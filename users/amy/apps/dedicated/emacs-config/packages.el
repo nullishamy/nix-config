@@ -48,3 +48,12 @@
 ;(unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
+
+(package! move-text
+  :recipe (:host github :repo "emacsfodder/move-text"))
+
+(package! elcord
+  :recipe (:host github :repo "Mstrodl/elcord"))
+
+(package! exec-path-from-shell
+  :recipe (:host github :repo "purcell/exec-path-from-shell"))
